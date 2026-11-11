@@ -1,0 +1,18 @@
+diff --git a/node_modules/@techstark/opencv-js/package.json b/node_modules/@techstark/opencv-js/package.json
+index 95bf355..2055978 100644
+--- a/node_modules/@techstark/opencv-js/package.json
++++ b/node_modules/@techstark/opencv-js/package.json
+@@ -4,6 +4,13 @@
+   "description": "OpenCV JavaScript version for node.js or browser",
+   "main": "dist/opencv.js",
+   "types": "dist/src/index.d.ts",
++  "browser": {
++    "fs": false,
++    "path": false,
++    "crypto": false,
++    "worker_threads": false,
++    "child_process": false
++  },
+   "files": [
+     "dist/",
+     "src/"
