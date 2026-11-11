@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { loadImage, toGray } from './tools/imageProcessing.ts';
+import { loadImage } from './tools/imageProcessing.ts';
 import './App.css';
 import cv from '@techstark/opencv-js';
 
@@ -13,9 +13,7 @@ function App() {
     const img = await loadImage(file)
     const src = cv.imread(img)
 
-    const res = toGray(src)
-
-    cv.imshow(canvas.current, res)
+    cv.imshow(canvas.current, src)
   }
 
   return (

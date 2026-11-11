@@ -1,3 +1,1 @@
-# Установка opencv.js
-
-Для корректной работы необхожимо установить [Desktop development with C++](https://github.com/nodejs/node-gyp) - необходимо для opencv.js
+TODO: написать tools-ы для всех описанных в docx операций. На фронте будет слева toolbar, по центру будет canvas с картинкой. Для обработки используется opencv-js.
