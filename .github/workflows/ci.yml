@@ -18,7 +18,9 @@ jobs:
       push: ${{ github.event_name != 'pull_request' }}
       set-meta-labels: true
       set-meta-annotations: true
-      meta-images: ${{ vars.DOCKERHUB_USERNAME }}/my-image
+      meta-images: ${{ vars.DOCKERHUB_USERNAME }}/webimage-server
+      meta-tags: |
+        type=sha
     secrets:
       registry-auths: |
         - registry: docker.io
