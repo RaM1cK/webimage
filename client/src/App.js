@@ -1,27 +1,45 @@
-import { useRef } from 'react';
-import { loadImage } from './tools/imageProcessing.ts';
-import './App.css';
-import cv from '@techstark/opencv-js';
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
+import EditorPage from './pages/EditorPage';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
-function App() {
-  const canvas = useRef(null);
+function ProtectedRoute({ children }) {
+  const { user, loading } = useAuth();
 
-  const handleChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const img = await loadImage(file)
-    const src = cv.imread(img)
-
-    cv.imshow(canvas.current, src)
+  if (loading) {
+    return <div className="main-content">Loading...</div>;
   }
-
-  return (
-    <div>
-      <input type='file' accept='image/*' onChange={handleChange}/>
-      <canvas ref={canvas}/>
-    </div>
-  );
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
 }
 
-export default App;
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route
+        path="/"
+        element={(
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        )}
+      />
+      <Route
+        path="/editor/:id"
+        element={(
+          <ProtectedRoute>
+            <EditorPage />
+          </ProtectedRoute>
+        )}
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
